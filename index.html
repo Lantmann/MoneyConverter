@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conversor de Moedas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white p-6 rounded-2xl shadow-xl w-full max-w-md space-y-4">
+    <h1 class="text-2xl font-bold text-center">Conversor de Moedas</h1>
+    <div class="flex gap-2">
+      <input id="amount" type="number" class="w-full p-2 rounded border" placeholder="Valor" />
+    </div>
+    <div class="flex gap-2">
+      <select id="from" class="w-1/2 p-2 rounded border"></select>
+      <select id="to" class="w-1/2 p-2 rounded border"></select>
+    </div>
+    <button onclick="convertCurrency()" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition">
+      Converter
+    </button>
+    <div id="result" class="text-center font-semibold text-lg mt-4"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
