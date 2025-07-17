@@ -1,5 +1,3 @@
-// script.js
-
 let fromChoices, toChoices;
 
 async function loadCurrencies() {
@@ -38,7 +36,7 @@ async function loadCurrencies() {
         shouldSort: true,
         });
 
-        // Define valores padrão
+        // Valores padrão
         fromChoices.setChoiceByValue('BRL');
         toChoices.setChoiceByValue('USD');
 
