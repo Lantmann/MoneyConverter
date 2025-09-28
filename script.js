@@ -8,7 +8,6 @@ async function loadCurrencies() {
         const fromSelect = document.getElementById('from');
         const toSelect = document.getElementById('to');
 
-        // Limpa selects
         fromSelect.innerHTML = '';
         toSelect.innerHTML = '';
 
@@ -18,7 +17,7 @@ async function loadCurrencies() {
             toSelect.appendChild(option);
         }
 
-        // Inicializa Choices.js (evita duplicar)
+        // Initialize Choices.js (avoid duplicates)
         if (fromChoices) fromChoices.destroy();
         if (toChoices) toChoices.destroy();
 
@@ -36,14 +35,14 @@ async function loadCurrencies() {
         shouldSort: true,
         });
 
-        // Valores padrão
+        // Default values
         fromChoices.setChoiceByValue('BRL');
         toChoices.setChoiceByValue('USD');
 
         convertCurrency();
 
     } catch (err) {
-        console.error('Erro ao carregar moedas:', err);
+        console.error('Error loading currencies:', err);
     }
 }
 
@@ -52,14 +51,20 @@ async function convertCurrency() {
     const from = document.getElementById("from").value;
     const to = document.getElementById("to").value;
     const result = document.getElementById("result");
+    const updateTime = document.getElementById("update-time");
+    const apiUpdateInfo = document.getElementById("api-update-info");
 
     if (!amount || amount <= 0) {
-        result.innerText = "Insira um valor válido.";
+        result.innerHTML = `<span class='error'>Enter a valid amount.</span>`;
+        updateTime.innerText = "";
+        if (apiUpdateInfo) apiUpdateInfo.innerText = "";
         return;
     }
 
     if (from === to) {
-        result.innerText = `${amount} ${from} = ${amount} ${to}`;
+        result.innerHTML = `<span class='equal'>${amount} ${from} = ${amount} ${to}</span>`;
+        updateTime.innerText = "";
+        if (apiUpdateInfo) apiUpdateInfo.innerText = "";
         return;
     }
 
@@ -69,12 +74,14 @@ async function convertCurrency() {
         const convertedAmount = (amount * data.rates[to]).toFixed(2);
         result.innerText = `${amount} ${from} = ${convertedAmount} ${to}`;
     } catch (error) {
-        console.error("Erro ao converter moeda:", error);
-        result.innerText = "Erro ao converter moeda. Tente novamente mais tarde.";
+        console.error("Error converting currency:", error);
+        result.innerHTML = `<span class='error'>Error converting currency. Please try again later.</span>`;
+        updateTime.innerText = "";
+        if (apiUpdateInfo) apiUpdateInfo.innerText = "";
     }
 }
 
-// Carrega as moedas quando a página for carregada
+// Load currencies when the page loads
 window.addEventListener('DOMContentLoaded', loadCurrencies);
 
 async function changeCurrency() {
